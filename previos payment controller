@@ -1,0 +1,88 @@
+package talabat.talabat3;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+public class potato3 implements Initializable {
+    @FXML
+    Label total_2;
+    @FXML
+    Label created;
+    @FXML
+    Label details;
+    @FXML
+    Button go_home;
+    Order order;
+    Cart cart;
+    ArrayList<Payment> payment;
+
+     @FXML
+    Label Payment_status;
+    User user;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+  //  for(Order order :)
+
+
+    public void switchToScene1(ActionEvent event) throws IOException {
+
+        root = FXMLLoader.load(getClass().getResource("potato.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        payment.add(order.getPayment());
+        for (int i = 0; i < 5; i++) {
+            total_2.setText("Total  " + cart.getTotalPrice()+"/n");
+            created.setText("Created  " + payment.get(i).getPayment_Date()+"/n");
+            details.setText("Details "+payment.get(i).getTransaction_id()+"/n");
+            Payment_status.setText("Payment status "+payment.get(i).getPayment_Status()+"/n");
+
+        }
+
+    }
+}
